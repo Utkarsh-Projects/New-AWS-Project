@@ -1,0 +1,41 @@
+name: CI/CD Node.js AWS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/node-aws-docker:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/node-aws-docker:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: SSH into EC2 and deploy
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker stop node-app || true
+            docker rm node-app || true
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/node-aws-docker:latest
+            docker run -d -p 3000:3000 --name node-app ${{ secrets.DOCKERHUB_USERNAME }}/node-aws-docker:latest
