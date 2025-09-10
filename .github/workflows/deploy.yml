@@ -31,11 +31,41 @@ jobs:
       - name: SSH into EC2 and deploy
         uses: appleboy/ssh-action@v0.1.7
         with:
-          host: ${{ secrets.EC2_PUBLIC_IP }}
+          host: ${{ 51.21.199.153 }}
           username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ -----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAleNEzAO4quABQ8/2FpuPxm5TZQcW/8MQeaazpyY2T5Ql0xQ1
++mCs7lA5X8ZtXayUslq6O0on0XdokJY/LCQCL6wC5ISTC32CX3MWwxdegxkjFW02
+neTXj2tMskimeEDxnO/Vm1psNz2nhrWVxZlGrXU/LiSaYEWMCvU0tWXuyXPaI6y5
+REXhpF4csNEE6e6yhu8IjkmLVSuwmAPGy5DslrzlppXOFuOwHWZLDVGauBA3aKpr
++TGjjSkG2Z+hZI5Rn2D2/vW+FVncN5fFoW0q1Fe/GMd7sHsmmXx/003LA53D0dR5
+022KIUO8NIAgX3zZ3KXpqQ8qCFo0NuEvA5OA+wIDAQABAoIBAQCEI912At3d/yf+
+UavBWJmTNZZd3bc/+gdfSEDf3kdJNvF1uj6wImSyoJVEQ1oNmGVrK6M9O+4Is73C
+okLFNmWbA4l1Tw+XtKmoXn01tzeCWjnc3PCmmKYVcWInVvcz0wVu9t2ZXUlEFh3I
+G/QTRULTDyeJFYnnz8hbrLswJNI0VI4UTy8nBgIprn8B6UUim0IqEfQeC13xAh+u
+L1x9/pZZxTZORzASlHLjsigNWI9TM5NHYKkP2SGgf6hCKlg+yeYF5/IHoem0Pk07
+StRbs/Xqbo7SaxzKy70/VRbEMU8a0tnEPpLHYY1seyRKt68Qrbw4vo1mmMHqmlq+
+irfIj66pAoGBAMZUyHi0bymWiz6fTFK3U6X3AkU0v6gH/3AsmWOMj6I/ePzd9oP7
+mb3UrMYfJzM4ryvHuoII+PYN5ZcnKVcCcVjyajz98OO++YMUoRU4fvYkKF/MNcEA
+eRmyS8YLOiM84PyFvDIwCYlvO2Jh3FBJ7UG1VOyilHI53PCSSK3taEeXAoGBAMF4
+fmPLfqWES/V+DyMax4NxvvcXzh0mEOowmuFOWUENYhU6JrLQAt1vtz0OPfxO2mPx
+s9xgtd5iVC+Y26qF1XjQ6mi+lDTYYr4/+NSrX7CcwhkY3uHg7SrvV3EdXY9uySEI
+zohz3lfbymnPU2PLDG3QnEfjT6lOrSoU+00qN149AoGBAIWSkDmK+9r8guc4DgUf
+Zvy9sQ+/CN04FbcMsnmzLwFM0kUrkF0vVEnfNEVyscnzgTZxG5F8TYAZt+jm/RaW
+lJQdH6PYOyaHdi/r8tkB5bAMhgyO0h0cHnNJ+3J0GUGmPLiVsTvz0lh3S31k/yYr
+w9ifMYT1shiEE+MKAlzxKWwdAoGALkDUVp9r475BOqusisP4NuCWuxQh3q4fFR4R
+qRPGGttMO67vWYiJZs8yi5JAF3XymDpMub8VO9leLxLoUVg1tPCdWfVWEVw6HynE
+H3PpKJwRe1aK0o2npcAas5xFpejihNdKKS0qVu7g8XLziMQecJKTCky52sxIcesa
+OVSCcDECgYBDLMD4oizOCFsYSaiZg9EhMMA8cWujZHUT15c1DpJZn/zzjy7xfEGA
+KgX7qd1ezERFUQvdwLZMSzPTmiLAvI24T2i4brrzxVhpvypOIVRCQLlBm6cPTJwR
+5+FJTfHeUa4QMpmuXIUaw2+KQBlr5XP04NLZn9jakmuUPMLJtzKD0A==
+-----END RSA PRIVATE KEY----- }}
           script: |
             docker stop node-app || true
             docker rm node-app || true
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/node-aws-docker:latest
             docker run -d -p 3000:3000 --name node-app ${{ secrets.DOCKERHUB_USERNAME }}/node-aws-docker:latest
+
+
+# secrets.EC2_SSH_KEY << 
+# secrets.EC2_PUBLIC_IP << 51.21.199.153
