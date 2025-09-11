@@ -3,7 +3,7 @@ FROM node:18 AS builder
 WORKDIR /app
 COPY app/package*.json ./
 RUN npm install --only=production
-COPY app/ .
+COPY app/ ..
 
 # Stage 2 - Run
 FROM node:18-slim
